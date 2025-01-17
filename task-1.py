@@ -5,12 +5,10 @@ This Python script compares the execution times of three sorting algorithms: ins
 import random
 import timeit
 
-small_data = [5, 3, 8, 6, 2, 7, 4, 1]
-large_data = [random.randint(1, 1000000) for _ in range (10000)]
-
 
 # Сортування вставками
 def insertion_sort(lst):
+    lst = lst[:]
     for i in range(1, len(lst)):
         key = lst[i]
         j = i-1
@@ -24,6 +22,7 @@ def insertion_sort(lst):
 
 # Сортування злиттям
 def merge_sort(arr):
+    arr = arr[:]
     if len(arr) <= 1:
         return arr
 
@@ -60,11 +59,13 @@ def merge(left, right):
 
 # Замір часу
 print("Small dataset:")
+small_data = [5, 3, 8, 6, 2, 7, 4, 1]
 print("Insertion sort:", timeit.timeit(lambda: insertion_sort(small_data), number=10))
 print("Merge sort:", timeit.timeit(lambda: merge_sort(small_data), number=10))
 print("Timsort (sorted):", timeit.timeit(lambda: sorted(small_data), number=10))
 
 print("\nLarge dataset:")
-print("Insertion sort:", timeit.timeit(lambda: insertion_sort(large_data), number=1))  
-print("Merge sort:", timeit.timeit(lambda: merge_sort(large_data), number=1))  
+large_data = [random.randint(1, 1000000) for _ in range (10000)]
+print("Insertion sort:", timeit.timeit(lambda: insertion_sort(large_data), number=1))
+print("Merge sort:", timeit.timeit(lambda: merge_sort(large_data), number=1))
 print("Timsort (sorted):", timeit.timeit(lambda: sorted(large_data), number=1))
